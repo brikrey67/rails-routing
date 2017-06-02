@@ -157,9 +157,9 @@ Consider this output from `rails routes`...
 ![artist-rails-routes](./images/readme-6.png)
 
 <details>
-  <summary><strong>What named route helper will return the url to list all artists?</strong></summary>
+  <summary><strong>What named route helper will return the path to list all artists?</strong></summary>
 
-  > `artists_url`
+  > `artists_path`
 
 </details>
 
@@ -189,24 +189,6 @@ Consider this output from `rails routes`...
   <summary><strong>Why not in models?</strong></summary>
 
   > Models do not know their place in the request/response cycle. Their primary concerns are business logic and interaction with the database.
-
-</details>
-
-<br/>
-
-<details>
-  <summary><strong>When do we use the `_path` helper? The `_url` helper?</strong></summary>
-
-  > `_url` helpers are used when redirecting. `_path` helpers are used for everything else.
-
-</details>
-
-<br/>
-
-<details>
-  <summary><strong>Why?</strong></summary>
-
-  > [The web expects it](https://www.viget.com/articles/rails-named-routes-path-vs-url).
 
 </details>
 
