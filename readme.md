@@ -297,7 +297,7 @@ Look through your application and think about what we need to change in order to
 ![new-rails-routes](./images/readme-14.png)
 
 <details>
-  <summary><strong>What has changed in the output of <code>rails routes</code></strong></summary>
+  <summary><strong>What has changed in the output of <code>rails routes</code>?</strong></summary>
 
   > - HTTP requests (URI Pattern) match the individual nested routes we just talked about (e.g., `:artist_id`)
   > - Song path helpers are now prefixed with artist (e.g., `artist_songs`, `new_artist_song`)
