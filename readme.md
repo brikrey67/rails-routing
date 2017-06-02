@@ -67,7 +67,7 @@ In the Intro to MVC lesson we explored the role of `config/routes.rb` in a Rails
 
 
 <details>
-  <summary><strong>Q. At a high level, what happens when we visit `http://localhost:3000/`? Why?<strong></summary>
+  <summary><strong>Q. At a high level, what happens when we visit `http://localhost:3000/`? Why?</strong></summary>
 
   > We see a listing of Artists.
   >
