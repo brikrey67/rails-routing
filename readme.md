@@ -33,6 +33,11 @@ It's our good friend the Rails rMVC diagram!
 
 Clone the [tunr_rails_routes_resources repo](https://github.com/ga-wdi-exercises/tunr_rails_routes_resources) and `cd` into the resulting directory.
 
+```bash
+$ git clone git@github.com:ga-wdi-exercises/tunr_rails_routes_resources.git
+$ cd tunr_rails_routes_resources
+```
+
 > The `master` branch contains starter code. The `solution` branch contains the code we will have written by the end of this lesson.
 
 In the Intro to MVC lesson we explored the role of `config/routes.rb` in a Rails application. In this file we define all the known routes of our application and then map them to their appropriate controller actions.
