@@ -31,11 +31,15 @@ It's our good friend the Rails rMVC diagram!
 
 ## Routes (5 minutes / 0:10)
 
-Clone the [tunr_rails_routes_resources repo](https://github.com/ga-wdi-exercises/tunr_rails_routes_resources) and `cd` into the resulting directory.
+Clone the [tunr_rails_routes_resources repo](https://github.com/ga-wdi-exercises/tunr_rails_routes_resources) and follow the below setup instructions.
 
 ```bash
 $ git clone git@github.com:ga-wdi-exercises/tunr_rails_routes_resources.git
 $ cd tunr_rails_routes_resources
+$ bundle install
+$ rails db:drop db:create db:migrate db:seed
+$ rails s
+
 ```
 
 > The `master` branch contains starter code. The `solution` branch contains the code we will have written by the end of this lesson.
