@@ -51,6 +51,8 @@ In the Intro to MVC lesson we explored the role of `config/routes.rb` in a Rails
 
 </details>
 
+<br/>
+
 <details>
   <summary><strong>Q. And the `show` page for an `artist`?</strong></summary>
 
@@ -65,6 +67,7 @@ In the Intro to MVC lesson we explored the role of `config/routes.rb` in a Rails
 
 </details>
 
+<br/>
 
 <details>
   <summary><strong>Q. At a high level, what happens when we visit `http://localhost:3000/`? Why?</strong></summary>
