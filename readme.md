@@ -201,11 +201,7 @@ Consider this output from `rails routes`...
 
 </details>
 
-> Resource: [Link Helpers](http://mixandgo.com/blog/how-to-use-link_to-in-rails)
-
 ## RESTful Routes (5 minutes / 0:30)
-
-<!-- AM: What does "as a resource" mean? -->
 
 REST attempts to view everything on the web as a resource. RESTful resources are expected to be managed via specific routes.  Rails makes it easy to generate RESTful routes using the `resources` keyword.
 
@@ -242,6 +238,8 @@ http://www.tu.nr/artists/3/songs/12
 
 </details>
 
+<br/>
+
 For this app we will be structuring our routes so that all songs exist only within the context of an artist.
 
 The reasons for this might not be so apparent for routes like `show`, `edit`, `update` and `destroy` because we have access to a `song` ID in the url anyway. But by using nested resources, it's easier to create a song because we have the `artist_id` in the url. Or maybe we want the songs index route to be namespaced under an `artist` so that we can **ensure** that a song is associated with a specific artist.
@@ -253,13 +251,14 @@ So our song `index` and `show` routes will look something like this...
 ![new-songs-index](./images/readme-9.png)
 ![new-songs-show](./images/readme-10.png)
 
-<!-- AM: Update answer with what params actually looks like. -->
 <details>
-  <summary><strong>Given the route <code>artists/7/songs/14</code>, what do you think would be in the <code>params</code> hash for this route?</strong></summary>
+  <summary><strong>Given the route <code>artists/7/songs/14</code>, what information you think would be in the <code>params</code> hash for this route?</strong></summary>
 
-  > `params = { id: }`
+  > Artist and song ids.
 
 </details>
+
+<br/>
 
 <details>
   <summary><strong><code>`:id`</code> is used twice. How do we know which is which?</strong></summary>
@@ -305,6 +304,8 @@ Look through your application and think about what we need to change in order to
   > - Controller actions, however, are the same
 
 </details>
+
+<br/>
 
 <details>
   <summary><strong>Based on this, what do we need to change in our app?</strong></summary>
@@ -356,6 +357,8 @@ Our app does not like the `new_song_path` we used in a link helper in our `artis
 
 </details>
 
+<br/>
+
 But our app is still giving us an error. Why?
 
 ![Third error](images/third-error.png)
@@ -370,6 +373,8 @@ You'll notice that we're getting a different error this time that ends with: `mi
   > We need to feed our `new_artist_song_path` helper an `artist` as a **variable**. Now our app knows which `artist` it is rendering a new `song` form for.  
 
 </details>
+
+<br/>
 
 And that'll do it. Let's refresh our page...
 
@@ -388,8 +393,8 @@ Some thoughts...
 
 From an artist `show` page, click on a link to a song. You should get an error.
 * Try fixing the `songs/show.html.erb` file
-* Hint #1: you might have to add an instance variable to `songs_controller.rb`.
-* Hint #2: remember, our `song` routes doesn't look the same as they did before!
+* **Hint #1:** you might have to add an instance variable to `songs_controller.rb`.
+* **Hint #2:** remember, our `song` routes doesn't look the same as they did before!
 
 ### Form Helpers
 
