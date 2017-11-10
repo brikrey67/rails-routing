@@ -3,10 +3,10 @@
 ## Learning Objectives
 
 - Review the relationship between HTTP requests and Controller actions
-- Identify the role a router (`routes.rb`) plays in the Rails MVC model
-- Use resources to define routes for a RESTful controller
+- Identify the role a router (`routes.rb`) plays in the Rails rMVC model
+- Use `resources` to define routes for a RESTful controller
 - Use `rails routes` to display RESTful routes
-- Implement route names in Rails link helpers
+- Use Rails path helpers to reference routes
 - Implement nested routes in a Rails application
 - Describe how path helpers work for nested routes
 - Implement `form_for` to build a form for a nested resource
@@ -111,9 +111,9 @@ The resulting output should look something like this...
 
 ![rails-routes](./images/readme-4.png)
 
-## Named Route Helpers
+## Named Path Helpers
 
-Looking at the output, we see the first column is "Prefix". These are **named route helpers** Rails provides so that we can easily reference these routes in code. This column provides information about the naming convention for these helpers.
+Looking at the output, we see the first column is "Prefix". These are **named path helpers** Rails provides so that we can easily reference these paths in code. This column provides information about the naming convention for these helpers.
 
 ### You Do: Path Helpers Documentation Dive (10 minutes / 0:25)
 
@@ -126,7 +126,7 @@ Spend five minutes reading through Sections 2.1 - 2.5 of the [Rails documentatio
 <details>
   <summary><strong>What are "helpers" in Rails?</strong></summary>
 
-  > **Helpers** codify Rails conventions. They write HTML using Rails or, in the case of custom helpers, our project's conventions.
+  > **Helpers** codify Rails conventions. They write code for us using Rails.
 
 </details>
 
@@ -157,7 +157,7 @@ Consider this output from `rails routes`...
 ![artist-rails-routes](./images/readme-6.png)
 
 <details>
-  <summary><strong>What named route helper will return the path to list all artists?</strong></summary>
+  <summary><strong>What named path helper will return the path to list all artists?</strong></summary>
 
   > `artists_path`
 
@@ -166,7 +166,7 @@ Consider this output from `rails routes`...
 <br/>
 
 <details>
-  <summary><strong>What named route helper will return the path to show an individual artist?</strong></summary>
+  <summary><strong>What named path helper will return the path to show an individual artist?</strong></summary>
 
   > `artist_path(@artist)`
 
@@ -196,7 +196,10 @@ Consider this output from `rails routes`...
 
 REST attempts to view everything on the web as a resource. RESTful resources are expected to be managed via specific routes.  Rails makes it easy to generate RESTful routes using the `resources` keyword.
 
-![resources-artist-songs](./images/readme-8.png)
+```rb
+resources :artists
+resources :songs
+```
 
 What exactly does `resources` do?
 - Tells Rails we will be using RESTful routes
@@ -237,10 +240,12 @@ The reasons for this might not be so apparent for routes like `show`, `edit`, `u
 
 > **Aside:** Ultimately your domain model is just that, yours. It's up to you to decide what the right fit is. Which tables make the most sense for the problems that you face in your application? Which associations should you use to best facilitate querying the database. Which resources should you have and under which namespaces? These are the questions developers ask themselves each and every time a new application is being created. We're just here to teach you some tools to answer these questions for yourself.
 
-So our song `index` and `show` routes will look something like this...
+So we want our song `index` and `show` routes will look something like this...
 
-![new-songs-index](./images/readme-9.png)
-![new-songs-show](./images/readme-10.png)
+```rb
+get "/artists/:id/songs", to: "songs#index"
+get "/artists/:id/songs/:id", to: "songs#show"
+```
 
 <details>
   <summary><strong>Given the route <code>artists/7/songs/14</code>, what information you think would be in the <code>params</code> hash for this route?</strong></summary>
@@ -256,18 +261,22 @@ So our song `index` and `show` routes will look something like this...
 
   > We need to be able to reference the artist and song id's in two distinct ways. Our routes need to look something more like this...
 
-  ![new-songs-index-and-show](./images/readme-11.png)
+```rb
+get "/artists/:artist_id/songs/:id"
+```
 
 </details>
 
+Fortunately, Rails will set this up for us if we simple alter how we use `resources`
+in `routes.rb`:
+
+```rb
+resources :artists do
+  resources :songs
+end
+```
+
 ## Break (10 minutes / 0:55)
-
-## A Quick Review
-
-These are the updates we have made to `config/routes.rb` so far...
-
-![old-routes](./images/readme-12.png)
-![new-routes](./images/readme-13.png)
 
 ## Implementing Nested Resources in Tunr
 
@@ -307,7 +316,7 @@ Look through your application and think about what we need to change in order to
 
 </details>
 
-## You Do: Fix The App! (60 minutes / 2:00)
+## We Do: Fix The App! (60 minutes / 2:00)
 
 For the rest of the class we'll be working to fix the app. Feel free to follow along, or go at your own pace.
 
@@ -376,8 +385,10 @@ So now what? The link helper for an individual song inside of our `.each` enumer
 ![old-artist-show](./images/readme-18.png)
 
 Some thoughts...
-* We don't have a path helper in the above example. What page are we trying to link to?
-* So which path helper do we need to add?
+* The error is telling us that it doesn't know what `song_path` is. This is because, as a shortcut,
+if we just put `song` in the link helper AND the path name matches the entity name, it will
+automatically read it as `song_path(song)`.
+* So which path helper do we need to use instead?
 * Do we need to feed it a variable? If so, how many?
 
 ![new-artist-show](./images/readme-19.png)
@@ -385,7 +396,7 @@ Some thoughts...
 From an artist `show` page, click on a link to a song. You should get an error.
 * Try fixing the `songs/show.html.erb` file
 * **Hint #1:** you might have to add an instance variable to `songs_controller.rb`.
-* **Hint #2:** remember, our `song` routes doesn't look the same as they did before!
+* **Hint #2:** remember, our `song` routes don't look the same as they did before!
 
 ### Form Helpers
 
