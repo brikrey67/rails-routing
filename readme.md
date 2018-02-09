@@ -202,6 +202,7 @@ resources :songs
 ```
 
 What exactly does `resources` do?
+
 - Tells Rails we will be using RESTful routes
 - Generates path helpers
 - Creates routes using a combination of REST and Rails conventions. This process assumes properly-named controllers (e.g.,`artists_controller.rb` and `songs_controller.rb`) and actions (e.g., `index`, `show`).
@@ -323,6 +324,7 @@ For the rest of the class we'll be working to fix the app. Feel free to follow a
 #### Bonuses
 
 If you find yourself moving along quickly, try implementing the following...
+
 - A third `Genre` model that has a `belongs_to` relationship with `Artist`
 - Read about and implement some of the advanced topics included in "Additional Reading" at the bottom of the lesson plan
 
@@ -385,70 +387,77 @@ So now what? The link helper for an individual song inside of our `.each` enumer
 ![old-artist-show](./images/readme-18.png)
 
 Some thoughts...
-* The error is telling us that it doesn't know what `song_path` is. This is because, as a shortcut,
-if we just put `song` in the link helper AND the path name matches the entity name, it will
-automatically read it as `song_path(song)`.
-* So which path helper do we need to use instead?
-* Do we need to feed it a variable? If so, how many?
+
+- The error is telling us that it doesn't know what `song_path` is. This is because, as a shortcut, if we just put `song` in the link helper AND the path name matches the entity name, it will automatically read it as `song_path(song)`.
+- So which path helper do we need to use instead?
+- Do we need to feed it a variable? If so, how many?
 
 ![new-artist-show](./images/readme-19.png)
 
 From an artist `show` page, click on a link to a song. You should get an error.
-* Try fixing the `songs/show.html.erb` file
-* **Hint #1:** you might have to add an instance variable to `songs_controller.rb`.
-* **Hint #2:** remember, our `song` routes don't look the same as they did before!
+
+- Try fixing the `songs/show.html.erb` file
+- **Hint #1:** remember, our `song` routes don't look the same as they did before!
+- **Hint #2:** How many parameters will your new path need?
 
 ### Form Helpers
 
 Something else we'll need to change are forms. Let's try making a new song.
-* From an artist `show` page, click on the "(+)" next to "Songs".
 
-No immediate error! But it's not working quite yet. Let's try creating a song.
+- From an artist `show` page, click on the "(+)" next to "Songs".
+
+It's not working quite yet. Let's try creating a song.
 
 ![Seventh error](images/seventh-error.png)
 
 Looks like our form is trying to access a `/songs` route.
-* Our application does not support that particular route
-* Let's take a look at `songs/new.html.erb` and `songs_controller.rb` and see how we can fix this...
+
+- Our application does not support that particular route
+- Let's take a look at `songs/new.html.erb` and `songs_controller.rb` and see how we can fix this...
 
 ![old-song-form](./images/readme-20.png)
 
 ![old-song-controller](./images/readme-21.png)
 
 We need to associate each new song with an artist. To do that, we need to provide our `form_for` helpers with both an artist and song as arguments.
-* That means we first need to define the artist in question in our controller action. Then we can modify our form.
+
+- That means we first need to define the artist in question in our controller action. Then we can modify our form.
 
 ![new-song-controller](./images/readme-22.png)
 
 Now let's modify our form.
-* When feeding multiple arguments to `form_for`, we have to place them inside of an array
-* In this case, we're not only giving it a new song (via `@song`) but also the artist we'll be adding it to (via `@artist`)
-* We can also take out the field for `artist_id` since we should be auto-populating that with our associations
+
+- When feeding multiple arguments to `form_for`, we have to place them inside of an array
+- In this case, we're not only giving it a new song (via `@song`) but also the artist we'll be adding it to (via `@artist`)
+- We can also take out the field for `artist_id` since we should be auto-populating that with our associations
 
 ![new-song-form](./images/readme-23.png)
 
 That takes care of the form. Now we need to fix the `create` controller action in `songs_controller.rb` so that we can add songs to artists.
-* We need an artist to add a song to. How do we set that up?
-* How should we modify `@song` so that it's saved to the proper artist?
-* Where would it make most sense to redirect to? Let's try the artist `show` page -- what path should we use?
+
+- We need an artist to add a song to. How do we set that up?
+- How should we modify `@song` so that it's saved to the proper artist?
+- Where would it make most sense to redirect to? Let's try the artist `show` page -- what path should we use?
 
 ![new-song-create-controller](./images/readme-24.png)
 
 Now you do the rest! Debug the following pages/forms so that they don't generate any errors upon loading/submission.
-* `/views/artists`
-  * `edit.html.erb`
-  * `index.html.erb`
-  * `new.html.erb`
-* `/views/songs`
-  * `edit.html.erb`
-  * `index.html.erb`
-  * `show.html.erb`
+
+- `/views/artists`
+  - `edit.html.erb`
+  - `index.html.erb`
+  - `new.html.erb`
+- `/views/songs`
+  - `edit.html.erb`
+  - `index.html.erb`
+  - `show.html.erb`
 
 It seems pretty daunting, but you won't have to change anything beyond link helpers, form helpers and controller actions.
-* If you feel lost, follow the error
-* Don't worry if you don't get to all of them
-* Work with each other on this
-* The instructors are also here to help.
+
+- If you feel lost, follow the error
+- Don't worry if you don't get to all of them
+- Work with each other on this
+- The instructors are also here to help.
 
 ## Break (10 minutes / 2:10)
 
@@ -465,6 +474,6 @@ Spend the remaining class-time either working on your homework or ask us questio
 
 ## Additional Reading
 
-* [Rails Routing From The Outside In](http://guides.rubyonrails.org/routing.html)
-* [The Lowdown On Routes](https://blog.engineyard.com/2010/the-lowdown-on-routes-in-rails-3)
-* [Scoping Rails Routes](http://notahat.com/2014/02/05/scoping-rails-routes.html)
+- [Rails Routing From The Outside In](http://guides.rubyonrails.org/routing.html)
+- [The Lowdown On Routes](https://blog.engineyard.com/2010/the-lowdown-on-routes-in-rails-3)
+- [Scoping Rails Routes](http://notahat.com/2014/02/05/scoping-rails-routes.html)
